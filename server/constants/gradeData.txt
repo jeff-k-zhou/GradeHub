@@ -1,0 +1,57 @@
+const data = {
+    __EVENTTARGET: ctl00$plnMain$btnRefreshView
+__EVENTARGUMENT: 
+        __VIEWSTATE: Q0AzgixMmCUG5anfZfTaLGQuqJsWK0ozxgPlQFTPLahEEBv11yoUceuS446oaKioltVYxz4aJIwQkOYY3N5MPwKouZtqk9+ K7RS5elSfB18Qd6SqmQvvxcg5 + gdtlQGFrhew + TWhFv0W5OAhBPaZHyK + 2yP2pEVSFAIpT5FUXjbF346AaOQe2D0yWUAzQ2dgRZz2phi+7q8bZkCkRG / corbuPegEEzVJrcgCEdwfdU95F1FvCVXdqKo1tki9plbkowZpJMqA7Y9fJ13NIlyDTJNNtP1mMbdkYMcgIxVU1HKbm5bLKvouOZzajPD1Ie1Sw66C6H7xHK / Tm00vaK850nyuEipFlCtWaCiR56 + TLSWGCyakPQC8kGxv + arf5rG + ia5sAe + smc4rKf8Lbn45X86ZoA + OuANPfSQPvboN8CvWfaUlDkWb5Zp5 + FwIGEbZBTR3I9U3tOQHgegBDQPtBoyiaEO1kJN / FRoeJ7WYUb4ZEKpCtvXAru2w6nfGSVCY + NbnMDB3jmCH4zmpn09aIZC416K7KOtAfRmNa7kVHoEC13YnvzYCBSg3oQybfI + 4320EtoGMl4bYJlJ7ymUSrZjVygy9rPx3UzR087gN7IHWX25qttGTRdI3HU + r9GWhcvGacIZo9tFIvXSnd + guBO2jXcZpOYQqVbswcpRKoGsvBmDbA6l / JMZwLd / 6Sf4AEMU1N3lCUOdCvRiSoFBYBHaYXdVnrTzT5PNlEJ7XZH2PUH / Yp24HraUqTFdBiivHWZzYqKsQFaAenQQIl1XQBKakhE9hkUJJ0tPrDWTCpe4yE8jOZ7a + 2aHJLQCYXgycIUy2LUpgQGvTWYy5p4 + Btx1l5ROkfMQlHomVe4VsKJyPRBJ56XT1zDVp95mcEzuLEOKy + fFH8NMLApmU4HKGqdNceXP6XpZfaGsBkqD4r7kazL2v7X1 + t47MkmsjOEAPsO5DryRdPyeDsfODL69yU8i1L9Dit6fQWO5MUJocUCKgYD3oou73WokzXjd5s9XKZJZ1xgnHv6 + SugyvZ3JC2ahuQPXcX + LT7TnALN42fuMQJfng3yS0Ju0rs7Cbj + 8jhv1tgRn1LXmpOehnDzo9OvNOCebCq / lHx9IFObbL / GY / swUp3mAoTDluA6aQmNMx8mEC + TlYSWSDNIkxyeKYnj8DA2C4N8CZtQdaiULGRAW3S + mMnGXYayxc918ECFQRTu4wboPpBervGftcI5U7oUpszC6qoHyMmIBCMjE0N2U1vXvXX / XE86WcBlvZDDMDg / s28O1DCuNjoY2e5YdvMirj4z / uk / Vy3 / 670wBXOZpJ9dHK6FTYXhf6 + tO7Co5hviW32d0uh6BY + z2ekaWaSVN5WBEOakF1b2ULLHAA + VVlLqKS5DV7cw / dcz9oW / OTvaqHH6RLs3eLICGmTUrXw1ALmkkPs1veH483yekbtglSsZYcKFGUJn39PdyA + fZahMSPELicFUikFxXOMl + Yfy2fiyq8GeBJSlcpAVbAsuifKZDyKQYzAJMHR07WQhJ0flxGfN1FGcIrxvKdua433ZtOLETG4n02kEc0VSDfAzfhEptKt7a0LYeC6YFop6PdcePVSzKX9zu / jzNSuiJEBcKoMq9rDEbAam2p2ky5tvZ7Ue77T602d7iZU1y7FF7xWh1fBKtrMXJSF7pUlzGodGw2ITB6cZbZ / UZKvtRyKPzd52HXbqZupBxPRhFZA4MoeF3fiEu9xKSlBNpgZ6IXqw ==
+            __VIEWSTATEGENERATOR: B0093F3C
+__EVENTVALIDATION: GmTBiZgpbuca8MS27G79GCaeusgUk4Z4Pni23rcl73DFafqcoSXR80z3Nn8eXLfRYi64aikJA2qKToWGWCMp2Wy6ZKxyxLy7 + Qi0bA + p / ux4uRF8ZHvYkbth1xlxWCz30zbeWreSAw3rR0CdXdci2LbCzPwbQmdiYYL2t3f2ntrF3SFjfzR3L0qKQNY5N2451WyH / z + Q1DPXVUxug7Qjz7nrQ / AufDQ0Ymn1L8ceeFgznMb4PzIXJ6lwx4wD25HWibxS8Oglej / PqtzBeN64kAQMqMDzVbsHfNmuBMrrtA9zriulFn8MBfqvEFxaG5TAXglUOdtTilYm2IaID / GQbd80XYZ87tKBfIAf2XjC6A2cF4CsfFrR8p1kq45rzzNp43CmoJxC7KL4ZUWPwBRjp + 62Jb8GL1Ro8J4iqdB6ceAQdBVG5cEVlGhPzLVV / SHnU1pd / oMdqztA / qV7dl5dVp5sKL2pbKBd5YAyQaRo97CQLrCXmxanLlZGaPbSvVbW4eyJF1mfQhy2BacKfD771JuX4v8Icihg + mt2ceIc6PwiJo5op7guak2i / DFvIwElv8g2cEqpkuzrWIIBzbixIckWWaTNBpgBb9R4cCVqALPYe0JUD2XbTEsZumGgNq2DIUI / Uzk6WrOgm19FUl4Rl4MAr27kPgk6F5qWvixtCeIAvJSCgj17t7HPck4a9U9Csni / 0C0XvxLuu9FNbf7nKcRS / hZbYrJRDQG2I8BP1PoJXr3NvJg / YJswnRtvfTshXC9ORBEhSQLB8z6B7639mYNJBiQgbjqAjt89xcYKa3zSFSmZR139DxCtVuoOkSct1m / 2DyoKQrVwpcZNPK0wVe4D2zbagV7Y / mVK3LuLqxQyUeqqq5FS1zUISqQs902CzDI6BduywR6Z5znjou5IYUtRhh0zSCBZRi8RCosa8vJ9q91H + /fD/OGGHwhuifri7YkJkKf + TeBM95cGG7 / RWwak9YJCzNOWy8xcQjIkn9gPrsRSNWOj7BDiUUsP6kO089zmCIyCl / PgdSU65OBG4BfUDJpFCDd4nXh2yDMmmJGO6O8 + H3eSlQDaGdQvEmmxvuv6mMbTSnZc9TteyS9VROjlh0h1JRe + TBfcYuhuZO5RPE7NtQSXKNXN3DfEJU7WjGXHJZ1Ka7R + N4xV2nwS + IfhqknbNZHotIniIki5rftCoa8ShryHtoNG + oPGQBgZv47 / gsF8Dhth2 + VGx2bGMUNdw / RZBnQure / H5hvnS67 / ssCV0qcSivpAifsXLbnoI5T4dPGBvBwmYA2j / a8kHbXuB + JTafAlbIrWUAwMYHKQzOGf5hBYlokzlUP9DrL973IkFkmMjdNCDrWdn9yjwtFoFN + /PbSdMeh3WAUKXZe8P4xqRX5+U2R8I20n19wqxcQCSDJQF7n3O+s3LqvgQfecmq00KFo0mBtho+t2nNJB0rdhytWWahIgdNw/3bx1fLZkbLI6DJUA / d24DY7ZMsUKpuye3ybgVO1ggc0T6BSaBBiKfBKu4XeJtSy2jN4xEjQ + 98UFzVGzgELyBE3evLrAB1X4Rq4Z7e7ceVPdEPdYZL9kUGK6TDjHPliJW30szf4BPwbe7pIvqDyM4 / vUeILIiyuOYR6de842ja3t2x8=
+ctl00$plnMain$hdnValidMHACLicense: Y
+ctl00$plnMain$hdnIsVisibleClsWrk: N
+ctl00$plnMain$hdnIsVisibleCrsAvg: N
+ctl00$plnMain$hdnJsAlert: Averages cannot be displayed when  Report Card Run is set to(All Runs).
+    ctl00$plnMain$hdnTitle: Classwork
+ctl00$plnMain$hdnLastUpdated: Last Updated
+ctl00$plnMain$hdnDroppedCourse:  This course was dropped as of
+ctl00$plnMain$hdnddlClasses: (All Classes)
+ctl00$plnMain$hdnddlCompetencies: (All Classes)
+ctl00$plnMain$hdnCompDateDue: Date Due
+ctl00$plnMain$hdnCompDateAssigned: Date Assigned
+ctl00$plnMain$hdnCompCourse: Course
+ctl00$plnMain$hdnCompAssignment: Assignment
+ctl00$plnMain$hdnCompAssignmentLabel: Assignments Not Related to Any Competency
+ctl00$plnMain$hdnCompNoAssignments: No assignments found
+ctl00$plnMain$hdnCompNoClasswork: Classwork could not be found for this competency for the selected report card run.
+    ctl00$plnMain$hdnCompScore: Score
+ctl00$plnMain$hdnCompPoints: Points
+ctl00$plnMain$hdnddlReportCardRuns1: (All Runs)
+ctl00$plnMain$hdnddlReportCardRuns2: (All Terms)
+ctl00$plnMain$hdnbtnShowAverage: Show All Averages
+ctl00$plnMain$hdnShowAveragesToolTip: Show all student's averages
+ctl00$plnMain$hdnPrintClassworkToolTip: Print all classwork
+ctl00$plnMain$hdnPrintClasswork: Print Classwork
+ctl00$plnMain$hdnCollapseToolTip: Collapse all courses
+ctl00$plnMain$hdnCollapse: Collapse All
+ctl00$plnMain$hdnFullToolTip: Switch courses to Full View
+ctl00$plnMain$hdnViewFull: Full View
+ctl00$plnMain$hdnQuickToolTip: Switch courses to Quick View
+ctl00$plnMain$hdnViewQuick: Quick View
+ctl00$plnMain$hdnExpand: Expand All
+ctl00$plnMain$hdnExpandToolTip: Expand all courses
+ctl00$plnMain$hdnChildCompetencyMessage: This competency is calculated as an average of the following competencies
+ctl00$plnMain$hdnCompetencyScoreLabel: Grade
+ctl00$plnMain$hdnAverageDetailsDialogTitle: Average Details
+ctl00$plnMain$hdnAssignmentCompetency: Assignment Competency
+ctl00$plnMain$hdnAssignmentCourse: Assignment Course
+ctl00$plnMain$hdnTooltipTitle: Title
+ctl00$plnMain$hdnCategory: Category
+ctl00$plnMain$hdnDueDate: Due Date
+ctl00$plnMain$hdnMaxPoints: Max Points
+ctl00$plnMain$hdnCanBeDropped: Can Be Dropped
+ctl00$plnMain$hdnHasAttachments: Has Attachments
+ctl00$plnMain$hdnExtraCredit: Extra Credit
+ctl00$plnMain$hdnType: Type
+ctl00$plnMain$hdnAssignmentDataInfo: Information could not be found for the assignment
+ctl00$plnMain$ddlReportCardRuns: 1 - 2024
+ctl00$plnMain$ddlClasses: ALL
+ctl00$plnMain$ddlCompetencies: ALL
+ctl00$plnMain$ddlOrderBy: Class
+}
