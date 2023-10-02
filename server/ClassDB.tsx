@@ -816,7 +816,7 @@ const classes: object = {
         multiplier: 1
     },
     FNA12100Y : { // Art II
-        weight: 5.0,
+        weight: 5.5,
         multiplier: 1
     },
     FNA12102Y : { // Art II Ceramics
@@ -828,11 +828,11 @@ const classes: object = {
         multiplier: 1
     },
     FNA13100Y : { // Art III
-        weight: 5.0,
+        weight: 5.5,
         multiplier: 1
     },
     FNA14100Y : { // Art IV
-        weight: 5.0,
+        weight: 5.5,
         multiplier: 1
     },
     FNA14300Y : { // AP Studio Art - Drawing
