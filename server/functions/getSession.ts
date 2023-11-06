@@ -43,7 +43,7 @@ export default async function getSession(username: string, password: string): Pr
         await browser.close()
         steps.push("Browser closed")
 
-        return cookies
+        return steps
     } catch {
         return steps
     }
