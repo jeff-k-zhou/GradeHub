@@ -12,10 +12,9 @@ app.use(cors())
 app.post("/getGrades", (req: Request, res: Response) => {
     getSession(req.body.username, req.body.password).then((credentials) => {
         if (credentials === "error") {
-            console.log("this is the issue")
             res.json({
                 error: true,
-                errorCode: 1
+                errorCode: 2
             })
         } else {
             axios.get("https://hac.friscoisd.org/HomeAccess/Content/Student/Assignments.aspx", {
