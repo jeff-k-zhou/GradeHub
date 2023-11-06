@@ -11,6 +11,7 @@ export default function Support() {
                     <div className="flex flex-col items-center gap-y-2">
                         <h2 className="text-xl">Email: <a className="underline text-blue-500" href="mailto:gradehubfisd@gmail.com">gradehubfisd@gmail.com</a></h2>
                         <h2 className="text-xl">Instagram: <a className="underline text-blue-500" href="https://instagram.com/gradehubfisd?igshid=NzZlODBkYWE4Ng%3D%3D&utm_source=qr">@gradehubfisd</a></h2>
+                        <h2 className="text-xl">Github: <a className="underline text-blue-500" href="https://github.com/drPod/GradeHub-ClassDB">GradeHub GPA Database</a></h2>
                     </div>
                 </div>
             </div>
