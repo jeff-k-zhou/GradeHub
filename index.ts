@@ -184,7 +184,7 @@ app.post("/verify", (req: Request, res: Response) => {
         if (credentials === "error") {
             res.json({
                 error: true,
-                errorCode: 2
+                errorCode: credentials
             })
         } else {
             axios.get("https://hac.friscoisd.org/HomeAccess/Content/Student/Assignments.aspx", {
