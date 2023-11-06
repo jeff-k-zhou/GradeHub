@@ -7,6 +7,16 @@ export default async function getSession(username: string, password: string): Pr
         })
         const page = await browser.newPage()
 
+        await page.setRequestInterception(true)
+
+        page.on("request", (request) => {
+            if (request.resourceType() === "image" || request.resourceType() === "stylesheet" || request.resourceType() === "font") {
+                request.abort()
+            } else {
+                request.continue()
+            }
+        })
+
         await page.goto("https://hac.friscoisd.org/HomeAccess/Account/LogOn?ReturnUrl=%2fHomeAccess%2f", {
             waitUntil: "domcontentloaded"
         })
