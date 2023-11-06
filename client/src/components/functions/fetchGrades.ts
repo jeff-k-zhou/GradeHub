@@ -24,6 +24,11 @@ export default async function fetchGrades(username: string, password: string, mp
                     error: true,
                     data: "error"
                 }
+            } else {
+                return {
+                    error: true,
+                    data: data.errorCode
+                }
             }
         } else {
             return {
