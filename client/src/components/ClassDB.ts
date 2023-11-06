@@ -816,7 +816,7 @@ const classes: object = {
         multiplier: 1
     },
     FNA12100Y : { // Art II
-        weight: 5.5,
+        weight: 5.0,
         multiplier: 1
     },
     FNA12102Y : { // Art II Ceramics
@@ -1293,7 +1293,8 @@ const classes: object = {
     },
     SST45500Y : { // AP Psychology with Social Studies Research
         weight: 6.0,
-        multiplier: 1
+        multiplier: 1,
+        weight2: 5.0,
         // ! THIS IS 5.0 FIRST SEM AND 6.0 SECOND SEM, IDK HOW U GONNA CODE THAT
     },
     SST65100 : { // Personal Financial Literacy
@@ -1773,3 +1774,5 @@ const classes: object = {
         multiplier: 1
     }
 };
+
+export default classes

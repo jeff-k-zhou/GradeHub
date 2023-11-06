@@ -1,3 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
+
 @tailwind base;
-@tailwind components;
 @tailwind utilities;
+@tailwind components;
+
+html {
+    font-family: 'Quicksand', sans-serif;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: grey;
+    border-radius: 10px;
+    opacity: 0.7;
+}
+
+input[type=password]::-ms-reveal,
+input[type=password]::-ms-clear {
+    display: none;
+}

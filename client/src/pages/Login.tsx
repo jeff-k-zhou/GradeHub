@@ -1,15 +1,16 @@
 import client from "../components/axios";
-import { encrypt } from "../components/encrypt";
 import { useState, useEffect } from "react";
 import Loading from "../components/Loading";
 import Container from "../components/Container";
 import Nav from "../components/Nav";
-import { Input, Button, Card, CardBody } from "@nextui-org/react"
+import { Input, Button, Card, CardHeader } from "@nextui-org/react"
+import { Eye, EyeSlash } from "react-bootstrap-icons"
 
 export default function Login() {
     const [username, setUsername] = useState<string>("")
     const [password, setPassword] = useState<string>("")
     const [loading, setLoading] = useState<boolean>(true)
+    const [visible, setVisible] = useState<boolean>(false)
     const [error, setError] = useState({
         username: {
             error: false,
@@ -29,9 +30,10 @@ export default function Login() {
         const username = localStorage.getItem("username")
         const password = localStorage.getItem("password")
         if (username && password) {
-            window.location.replace("/dashboard")
+            window.location.replace("/grades")
+        } else {
+            setLoading(false)
         }
-        setLoading(false)
     }, [])
     function validate() {
         let valid = true
@@ -67,18 +69,35 @@ export default function Login() {
             username: username,
             password: password
         }).then((response) => {
-            setVerifying(false)
             const data = response.data
             if (data.error) {
+                setVerifying(false)
                 if (data.errorCode === 1) {
-                    console.error("timeout")
-                } else if (data.errorCode === 2) {
-                    console.error("username/password invalid")
+                    setStatusError({
+                        error: true,
+                        msg: "HAC is not responding. Please try again later."
+                    })
+                } else if (data.errorCode === 3) {
+                    setStatusError({
+                        error: true,
+                        msg: "Invalid username or password"
+                    })
                 }
             } else {
-                localStorage.setItem("username", encrypt(username))
-                localStorage.setItem("password", encrypt(password))
-                window.location.replace("/dashboard")
+                client.post("/encrypt", {
+                    username: username,
+                    password: password
+                }).then((res) => {
+                    localStorage.setItem("username", res.data.username)
+                    localStorage.setItem("password", res.data.password)
+                    window.location.replace("/grades")
+                }).catch(() => {
+                    setVerifying(false)
+                    setStatusError({
+                        error: true,
+                        msg: "Couldn't contact server"
+                    })
+                })
             }
         }).catch(() => {
             setVerifying(false)
@@ -88,11 +107,12 @@ export default function Login() {
 
     return (
         <Container>
-            <Nav logged={false} />
+            <Nav active={-1} />
             {
                 loading ? <Loading /> : (
                     <>
                         <div className="flex flex-col items-center justify-center h-full w-full gap-y-6">
+                            <h1 className="text-5xl">HAC Login</h1>
                             <Input
                                 label="Username"
                                 type="text"
@@ -111,10 +131,11 @@ export default function Login() {
                                 className="w-5/6 lg:w-1/2"
                                 isInvalid={error.username.error}
                                 errorMessage={error.username.msg}
+                                size="lg"
                             />
                             <Input
                                 label="Password"
-                                type="password"
+                                type={visible ? "text" : "password"}
                                 variant="bordered"
                                 value={password}
                                 onChange={(e) => {
@@ -130,19 +151,36 @@ export default function Login() {
                                 className="w-5/6 lg:w-1/2"
                                 isInvalid={error.password.error}
                                 errorMessage={error.password.msg}
+                                size="lg"
+                                endContent={
+                                    visible ? (
+                                        <EyeSlash
+                                            size={24}
+                                            className="cursor-pointer"
+                                            onClick={() => setVisible(false)}
+                                        />
+                                    ) : (
+                                        <Eye
+                                            size={24}
+                                            className="cursor-pointer"
+                                            onClick={() => setVisible(true)}
+                                        />
+                                    )
+                                }
                             />
+                            <Card className={`bg-red-500 text-white w-5/6 lg:w-1/2 ${!statusError.error ? "hidden" : ""}`}>
+                                <CardHeader>{statusError.msg}</CardHeader>
+                            </Card>
                             <Button
                                 color="primary"
                                 className="w-5/6 lg:w-1/2"
                                 isLoading={verifying}
                                 onClick={handleSubmit}
+                                size="lg"
                             >
-                                { verifying ? "" : "Login" }
+                                {verifying ? "" : "Login"}
                             </Button>
                         </div>
-                        <Card hidden={!statusError.error} className="bg-red-500 text-white">
-                            <CardBody>{statusError.msg}</CardBody>
-                        </Card>
                     </>
                 )
             }
