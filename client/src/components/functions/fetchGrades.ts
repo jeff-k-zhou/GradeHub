@@ -6,7 +6,7 @@ export default async function fetchGrades(username: string, password: string, mp
             username: username,
             password: password,
             mp: mp
-        });
+        })
         const data = response.data;
         if (data.error) {
             return {

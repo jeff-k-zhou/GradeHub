@@ -1,17 +1,14 @@
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer'
 
-export default async function getSession(username: string, password: string): Promise<any> {
-    let steps = []
+export default async function getSession(username: string, password: string) {
     try {
         const browser = await puppeteer.launch({
             headless: "new"
         })
-        steps.push("Browser launched")
         const page = await browser.newPage()
-        steps.push("Page created")
+        await page.setUserAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36")
 
         await page.setRequestInterception(true)
-        steps.push("Request interception enabled")
 
         page.on("request", (request) => {
             if (request.resourceType() === "image" || request.resourceType() === "stylesheet" || request.resourceType() === "font") {
@@ -24,27 +21,22 @@ export default async function getSession(username: string, password: string): Pr
         await page.goto("https://hac.friscoisd.org/HomeAccess/Account/LogOn?ReturnUrl=%2fHomeAccess%2f", {
             waitUntil: "domcontentloaded"
         })
-        steps.push("Page loaded")
 
         await page.type("#LogOnDetails_UserName", username)
         await page.type("#LogOnDetails_Password", password)
-        steps.push("Credentials entered")
         await Promise.all([
             page.waitForNavigation({
                 waitUntil: "domcontentloaded"
             }),
             page.click("#login")
         ])
-        steps.push("Logged in")
 
         const cookies = await page.cookies()
-        steps.push("Cookies obtained")
 
         await browser.close()
-        steps.push("Browser closed")
 
         return cookies
     } catch {
-        return steps
+        return "error"
     }
 }
