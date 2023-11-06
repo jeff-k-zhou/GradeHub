@@ -200,7 +200,7 @@ app.post("/verify", (req: Request, res: Response) => {
                 if (login !== null) {
                     res.json({
                         error: true,
-                        errorCode: 3
+                        errorCode: credentials
                     })
                 } else {
                     res.json({
