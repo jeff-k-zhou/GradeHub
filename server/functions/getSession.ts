@@ -3,7 +3,7 @@ import puppeteer from 'puppeteer';
 export default async function getSession(username: string, password: string): Promise<any> {
     try {
         const browser = await puppeteer.launch({
-            headless: true
+            headless: "new"
         })
         console.log("Browser launched")
         const page = await browser.newPage()
