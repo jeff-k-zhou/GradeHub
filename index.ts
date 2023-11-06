@@ -30,7 +30,7 @@ app.post("/getGrades", (req: Request, res: Response) => {
                 if (login !== null) {
                     res.json({
                         error: true,
-                        errorCode: 3
+                        errorCode: page
                     })
                 } else {
                     const courses = document.querySelectorAll(".AssignmentClass")
