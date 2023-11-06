@@ -181,32 +181,39 @@ app.post("/getGrades", (req: Request, res: Response) => {
 
 app.post("/verify", (req: Request, res: Response) => {
     getSession(req.body.username, req.body.password).then((credentials) => {
-        axios.get("https://hac.friscoisd.org/HomeAccess/Content/Student/Assignments.aspx", {
-            headers: {
-                Cookie: credentials.map((cookie: any) => `${cookie.name}=${cookie.value}`).join("; "),
-                "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome"
-            }
-        }).then((response) => {
-            const page = response.data.toString()
-            const dom = new jsdom.JSDOM(page)
-            const document = dom.window.document
-            const login = document.querySelector("#LogOnDetails_UserName")
-            if (login !== null) {
-                res.json({
-                    error: true,
-                    errorCode: 3
-                })
-            } else {
-                res.json({
-                    error: false
-                })
-            }
-        }).catch(() => {
+        if (credentials === "error") {
             res.json({
                 error: true,
-                errorCode: 1
+                errorCode: 2
             })
-        })
+        } else {
+            axios.get("https://hac.friscoisd.org/HomeAccess/Content/Student/Assignments.aspx", {
+                headers: {
+                    Cookie: credentials.map((cookie: any) => `${cookie.name}=${cookie.value}`).join("; "),
+                    "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome"
+                }
+            }).then((response) => {
+                const page = response.data.toString()
+                const dom = new jsdom.JSDOM(page)
+                const document = dom.window.document
+                const login = document.querySelector("#LogOnDetails_UserName")
+                if (login !== null) {
+                    res.json({
+                        error: true,
+                        errorCode: 3
+                    })
+                } else {
+                    res.json({
+                        error: false
+                    })
+                }
+            }).catch(() => {
+                res.json({
+                    error: true,
+                    errorCode: 1
+                })
+            })
+        }
     })
 })
 
