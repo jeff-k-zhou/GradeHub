@@ -35,8 +35,14 @@ export default async function getSession(username: string, password: string) {
 
         await browser.close()
 
-        return cookies
+        return {
+            error: false,
+            cookies: cookies
+        }
     } catch (error) {
-        return error
+        return {
+            error: true,
+            data: error
+        }
     }
 }
