@@ -11,7 +11,7 @@ app.use(cors())
 
 app.post("/getGrades", (req: Request, res: Response) => {
     getSession(req.body.username, req.body.password).then((credentials) => {
-        if (credentials === "error") {
+        if (credentials) {
             res.json({
                 error: true,
                 errorCode: credentials
@@ -181,7 +181,7 @@ app.post("/getGrades", (req: Request, res: Response) => {
 
 app.post("/verify", (req: Request, res: Response) => {
     getSession(req.body.username, req.body.password).then((credentials) => {
-        if (credentials === "error") {
+        if (credentials) {
             res.json({
                 error: true,
                 errorCode: credentials
