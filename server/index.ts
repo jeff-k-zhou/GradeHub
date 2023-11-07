@@ -14,7 +14,7 @@ app.post("/getGrades", (req: Request, res: Response) => {
         if (credentials.error) {
             res.json({
                 error: true,
-                errorCode: credentials.data
+                errorCode: 1
             })
         } else {
             axios.get("https://hac.friscoisd.org/HomeAccess/Content/Student/Assignments.aspx", {
@@ -30,7 +30,7 @@ app.post("/getGrades", (req: Request, res: Response) => {
                 if (login !== null) {
                     res.json({
                         error: true,
-                        errorCode: credentials
+                        errorCode: 3
                     })
                 } else {
                     const courses = document.querySelectorAll(".AssignmentClass")
@@ -184,7 +184,7 @@ app.post("/verify", (req: Request, res: Response) => {
         if (credentials.error) {
             res.json({
                 error: true,
-                errorCode: credentials.data
+                errorCode: 1
             })
         } else {
             axios.get("https://hac.friscoisd.org/HomeAccess/Content/Student/Assignments.aspx", {
@@ -200,7 +200,7 @@ app.post("/verify", (req: Request, res: Response) => {
                 if (login !== null) {
                     res.json({
                         error: true,
-                        errorCode: credentials
+                        errorCode: 3
                     })
                 } else {
                     res.json({

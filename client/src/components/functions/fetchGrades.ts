@@ -6,12 +6,24 @@ export default async function fetchGrades(username: string, password: string, mp
             username: username,
             password: password,
             mp: mp
-        })
+        });
         const data = response.data;
         if (data.error) {
-            return {
-                error: true,
-                data: data.errorCode
+            if (data.errorCode === 1) {
+                return {
+                    error: true,
+                    data: "timeout"
+                }
+            } else if (data.errorCode === 2) {
+                return {
+                    error: true,
+                    data: "error"
+                }
+            } else if (data.errorCode === 3) {
+                return {
+                    error: true,
+                    data: "error"
+                }
             }
         } else {
             return {
@@ -27,9 +39,21 @@ export default async function fetchGrades(username: string, password: string, mp
             });
             const data_2 = response_1.data;
             if (data_2.error) {
-                return {
-                    error: true,
-                    data: data_2.errorCode
+                if (data_2.errorCode === 1) {
+                    return {
+                        error: true,
+                        data: "timeout"
+                    }
+                } else if (data_2.errorCode === 2) {
+                    return {
+                        error: true,
+                        data: "error"
+                    }
+                } else if (data_2.errorCode === 3) {
+                    return {
+                        error: true,
+                        data: "error"
+                    }
                 }
             } else {
                 return {
