@@ -11,15 +11,15 @@ app.use(cors())
 
 app.post("/getGrades", (req: Request, res: Response) => {
     getSession(req.body.username, req.body.password).then((credentials) => {
-        if (credentials) {
+        if (credentials.error) {
             res.json({
                 error: true,
-                errorCode: credentials
+                errorCode: credentials.data
             })
         } else {
             axios.get("https://hac.friscoisd.org/HomeAccess/Content/Student/Assignments.aspx", {
                 headers: {
-                    Cookie: credentials.map((cookie: any) => `${cookie.name}=${cookie.value}`).join("; "),
+                    Cookie: credentials.cookies!.map((cookie: any) => `${cookie.name}=${cookie.value}`).join("; "),
                     "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Mobile Safari/537.36 Edg/117.0.2045.31"
                 }
             }).then((response) => {
@@ -108,7 +108,7 @@ app.post("/getGrades", (req: Request, res: Response) => {
                         }
                         axios.post("https://hac.friscoisd.org/HomeAccess/Content/Student/Assignments.aspx", postData, {
                             headers: {
-                                Cookie: credentials.map((cookie: any) => `${cookie.name}=${cookie.value}`).join("; "),
+                                Cookie: credentials.cookies!.map((cookie: any) => `${cookie.name}=${cookie.value}`).join("; "),
                                 "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Mobile Safari/537.36 Edg/117.0.2045.31",
                                 "Content-Type": "application/x-www-form-urlencoded"
                             }
@@ -181,15 +181,15 @@ app.post("/getGrades", (req: Request, res: Response) => {
 
 app.post("/verify", (req: Request, res: Response) => {
     getSession(req.body.username, req.body.password).then((credentials) => {
-        if (credentials) {
+        if (credentials.error) {
             res.json({
                 error: true,
-                errorCode: credentials
+                errorCode: credentials.data
             })
         } else {
             axios.get("https://hac.friscoisd.org/HomeAccess/Content/Student/Assignments.aspx", {
                 headers: {
-                    Cookie: credentials.map((cookie: any) => `${cookie.name}=${cookie.value}`).join("; "),
+                    Cookie: credentials.cookies!.map((cookie: any) => `${cookie.name}=${cookie.value}`).join("; "),
                     "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome"
                 }
             }).then((response) => {
