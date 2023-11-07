@@ -1,10 +1,10 @@
 import puppeteer from 'puppeteer'
 
 export default async function getSession(username: string, password: string) {
+    const browser = await puppeteer.launch({
+        headless: "new"
+    })
     try {
-        const browser = await puppeteer.launch({
-            headless: "new"
-        })
         const page = await browser.newPage()
 
         await page.setRequestInterception(true)
