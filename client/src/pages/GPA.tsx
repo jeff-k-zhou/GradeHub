@@ -54,6 +54,7 @@ export default function GPA() {
                                 setWeighted("N/A")
                                 setUnweighted("N/A")
                             }
+                            window.sessionStorage.setItem(grades.data.mp, JSON.stringify(grades.data.grades))
                             setCalculating(false)
                         }
                     })

@@ -14,6 +14,7 @@ export default function calculateGPA(grades: any[], mp: number) {
                     key = item
                 }
             })
+            i--;
             if (i === 0) {
                 break
             }
