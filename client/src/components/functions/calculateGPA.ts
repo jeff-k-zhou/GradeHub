@@ -7,13 +7,14 @@ export default function calculateGPA(grades: any[], mp: number) {
     const regex = /([A-Z])\w+/g
     for (const grade of grades) {
         let key = ""
-        while (!key) {
+        while (!key && i >= 0) {
             let i = 7
             Object.keys(classes).forEach((item) => {
                 if (grade.code.includes(item.slice(0, i))) {
                     key = item
                 }
             })
+            i--
         }
         console.log(key)
         if (Number(grade.grade) === 0 || isNaN(Number(grade.grade))) {
