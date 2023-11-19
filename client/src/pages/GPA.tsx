@@ -1,13 +1,15 @@
 import Container from "../components/Container"
 import Loading from "../components/Loading"
 import Nav from "../components/Nav"
-import { Card, CardBody, Progress, Skeleton } from "@nextui-org/react"
+import { Card, CardBody, Progress, Skeleton, Button } from "@nextui-org/react"
 import { useEffect, useState } from "react"
 import calculateGPA from "../components/functions/calculateGPA"
 import unweightedGPA from "../components/functions/unweightedGPA"
 import fetchGrades from "../components/functions/fetchGrades"
 import client from "../components/axios"
 import Chart from "../components/Chart"
+import { ArrowClockwise } from "react-bootstrap-icons"
+import { Link } from "react-router-dom"
 
 export default function GPA() {
     const [loading, setLoading] = useState(true)
@@ -16,6 +18,7 @@ export default function GPA() {
     const [unweighted, setUnweighted] = useState<string>('N/A')
     const [data, setData] = useState<any>(null)
     const [weight, setWeight] = useState<any>(null)
+    const [error, setError] = useState(false)
     const grades = [
         window.sessionStorage.getItem("1") ? JSON.parse(window.sessionStorage.getItem("1")!) : null,
         window.sessionStorage.getItem("2") ? JSON.parse(window.sessionStorage.getItem("2")!) : null,
@@ -50,6 +53,7 @@ export default function GPA() {
                     fetchGrades(decryptedInfo.data.username, decryptedInfo.data.password).then((grades) => {
                         if (grades.error) {
                             console.log(grades.data)
+                            setError(true)
                         } else {
                             const weighted = calculateGPA(grades.data.grades, Number(grades.data.mp))
                             const unweighted = unweightedGPA(grades.data.grades)
@@ -70,12 +74,27 @@ export default function GPA() {
                 })
             }
         } else {
-            window.location.replace("/")
+            window.location.replace("/login")
         }
     }, [])
 
     if (loading) {
         return <Container><Loading /></Container>
+    } else if (error) {
+        return (
+            <Container>
+                <Nav active={1} />
+                <div className="w-full h-full flex flex-col items-center justify-center gap-y-4">
+                    <h1 className="font-normal text-xl">There was an error fetching your GPA.</h1>
+                    <Link to="/gpa">
+                        <Button color="primary">
+                            <ArrowClockwise size={20} />
+                            Retry
+                        </Button>
+                    </Link>
+                </div>
+            </Container>
+        )
     } else {
         return (
             <Container>

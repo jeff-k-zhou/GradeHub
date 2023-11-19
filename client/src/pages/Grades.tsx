@@ -55,6 +55,17 @@ export default function Grades() {
                             setSelected(data.data.mp)
                             window.sessionStorage.setItem("mp", data.data.mp)
                         }
+                        for (let i = 0; i < 4; i++) {
+                            if (!window.sessionStorage.getItem((i + 1).toString())) {
+                                fetchGrades(response.data.username, response.data.password, (i + 1)).then((grades) => {
+                                    if (grades.error) {
+                                        console.log(grades.data)
+                                    } else {
+                                        window.sessionStorage.setItem(grades.data.mp, JSON.stringify(grades.data.grades))
+                                    }
+                                })
+                            }
+                        }
                         setFetching(false)
                     })
                 })
@@ -210,7 +221,7 @@ export default function Grades() {
                                                                                 window.scrollTo(0, 0)
                                                                                 ref.current?.classList.add("slideRight")
                                                                             }} aria-label="View Grades" role="button">
-                                                                                <h1 className="font-normal text-xl">
+                                                                                <h1 className="font-normal text-xl text-center text-ellipsis whitespace-nowrap w-full overflow-hidden">
                                                                                     {grade.name}
                                                                                 </h1>
                                                                                 <h2>{grade.code}</h2>

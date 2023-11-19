@@ -1,11 +1,11 @@
 import puppeteer from 'puppeteer'
 
 export default async function getSession(username: string, password: string) {
-    const browser = await puppeteer.launch({
-        headless: "new",
-        args: ["--no-sandbox", "--disable-setuid-sandbox"]
-    })
     try {
+        const browser = await puppeteer.launch({
+            headless: "new",
+            args: ["--no-sandbox", "--disable-setuid-sandbox"]
+        })
         const page = (await browser.pages())[0]
 
         await page.setRequestInterception(true)

@@ -32,6 +32,16 @@ export default function Chart() {
                 text: 'GPA Over Time',
             },
         },
+        scales: {
+            y: {
+                beginAtZero: true,
+                min: 0,
+                max: 6,
+                ticks: {
+                    stepSize: 0.5,
+                },
+            },
+        },
     }
 
     const labels = ["MP1", "MP2", "MP3", "MP4"]
