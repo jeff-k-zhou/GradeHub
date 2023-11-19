@@ -4,8 +4,10 @@ import classes from "../ClassDB"
 export default function calculateGPA(grades: any[], mp: number) {
     let counter = 0
     let total = 0
-    const regex = /([A-Z])\w+/g
+    let subjects = []
+    let weight = []
     for (const grade of grades) {
+        subjects.push(grade.name)
         let key = ""
         let i = 7
         while (!key) {
@@ -14,25 +16,24 @@ export default function calculateGPA(grades: any[], mp: number) {
                     key = item
                 }
             })
-            i--;
+            i--
             if (i === 0) {
                 break
             }
         }
-        console.log(key)
         if (Number(grade.grade) === 0 || isNaN(Number(grade.grade))) {
             if (!isNaN(Number(grade.grade))) {
                 let scored = false
                 for (const assignment of grade.assignments) {
                     if ((!(isNaN(Number(assignment.score))) || assignment.score === "L" || assignment.score === "ABS") && (assignment.category.includes("Assessment") || assignment.category.includes("Major"))) {
-                        console.log(assignment.name)
+                        weight.push("N/A")
                         scored = true
                         break
                     }
                 }
-                console.log(scored)
                 if (scored) {
                     counter += classes[key].multiplier
+                    weight.push("0.0")
                 }
             }
         } else if (Number(grade.grade) >= 70) {
@@ -40,11 +41,13 @@ export default function calculateGPA(grades: any[], mp: number) {
             if (key === "SST45500Y") {
                 if (mp <= 2) {
                     total += (classes[key].weight - subtraction) * classes[key].multiplier
+                    weight.push(`${(classes[key].weight - subtraction).toFixed(1)}  ${classes[key].multiplier === 1 ? "" : `(${classes[key].multiplier})` }`)
                 } else {
                     total += (classes[key].weight2 - subtraction) * classes[key].multiplier
+                    weight.push(`${(classes[key].weight2 - subtraction).toFixed(1)}  ${classes[key].multiplier === 1 ? "" : `(${classes[key].multiplier})` }`)
                 }
             } else if (!(classes[key].multiplier === 0)) {
-                console.log(`${total} + ${(classes[key].weight - subtraction) * classes[key].multiplier}`)
+                weight.push(`${(classes[key].weight - subtraction).toFixed(1)}  ${(classes[key].multiplier === 1 ? "" : `(${classes[key].multiplier})` )}`)
                 total += (classes[key].weight - subtraction) * classes[key].multiplier
             }
             counter += classes[key].multiplier
@@ -56,6 +59,10 @@ export default function calculateGPA(grades: any[], mp: number) {
         return -1
     } else {
         console.log(`${total} / ${counter}`)
-        return (total / counter).toFixed(3)
+        return {
+            gpa: (total / counter).toFixed(3),
+            classes: subjects,
+            weight: weight
+        }
     }
 }

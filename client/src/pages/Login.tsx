@@ -64,45 +64,46 @@ export default function Login() {
         if (!validate()) {
             setVerifying(false)
             return
-        }
-        client.post("/verify", {
-            username: username,
-            password: password
-        }).then((response) => {
-            const data = response.data
-            if (data.error) {
-                setVerifying(false)
-                if (data.errorCode === 1) {
-                    setStatusError({
-                        error: true,
-                        msg: "HAC is not responding. Please try again later."
-                    })
-                } else if (data.errorCode === 3) {
-                    setStatusError({
-                        error: true,
-                        msg: "Invalid username or password"
+        } else {
+            client.post("/verify", {
+                username: username,
+                password: password
+            }).then((response) => {
+                const data = response.data
+                if (data.error) {
+                    setVerifying(false)
+                    if (data.errorCode === 1) {
+                        setStatusError({
+                            error: true,
+                            msg: "HAC is not responding. Please try again later."
+                        })
+                    } else if (data.errorCode === 3) {
+                        setStatusError({
+                            error: true,
+                            msg: "Invalid username or password"
+                        })
+                    }
+                } else {
+                    client.post("/encrypt", {
+                        username: username,
+                        password: password
+                    }).then((res) => {
+                        localStorage.setItem("username", res.data.username)
+                        localStorage.setItem("password", res.data.password)
+                        window.location.replace("/grades")
+                    }).catch(() => {
+                        setVerifying(false)
+                        setStatusError({
+                            error: true,
+                            msg: "Couldn't contact server"
+                        })
                     })
                 }
-            } else {
-                client.post("/encrypt", {
-                    username: username,
-                    password: password
-                }).then((res) => {
-                    localStorage.setItem("username", res.data.username)
-                    localStorage.setItem("password", res.data.password)
-                    window.location.replace("/grades")
-                }).catch(() => {
-                    setVerifying(false)
-                    setStatusError({
-                        error: true,
-                        msg: "Couldn't contact server"
-                    })
-                })
-            }
-        }).catch(() => {
-            setVerifying(false)
-            console.error("couldn't contact server")
-        })
+            }).catch(() => {
+                setVerifying(false)
+                console.error("couldn't contact server")
+            })
+        }
     }
 
     return (
@@ -111,7 +112,11 @@ export default function Login() {
             {
                 loading ? <Loading /> : (
                     <>
-                        <div className="flex flex-col items-center justify-center h-full w-full gap-y-6">
+                        <div className="flex flex-col items-center justify-center h-full w-full gap-y-6" onKeyDown={(key) => {
+                            if (key.key === "Enter") {
+                                handleSubmit()
+                            }
+                        }}>
                             <h1 className="text-5xl">HAC Login</h1>
                             <Input
                                 label="Username"
@@ -131,6 +136,7 @@ export default function Login() {
                                 className="w-5/6 lg:w-1/2"
                                 isInvalid={error.username.error}
                                 errorMessage={error.username.msg}
+                                isDisabled={verifying}
                                 size="lg"
                             />
                             <Input
@@ -151,6 +157,7 @@ export default function Login() {
                                 className="w-5/6 lg:w-1/2"
                                 isInvalid={error.password.error}
                                 errorMessage={error.password.msg}
+                                isDisabled={verifying}
                                 size="lg"
                                 endContent={
                                     visible ? (

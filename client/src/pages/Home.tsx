@@ -23,7 +23,7 @@ export default function Home() {
                                 <div className="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] text-white">
                                     <div className="w-full flex flex-col items-center gap-y-3 fadeIn">
                                         <h1 className="font-normal text-7xl">GradeHub</h1>
-                                        <h2 className="text-xl">Alpha Version</h2>
+                                        <h2 className="text-xl">Beta Version</h2>
                                     </div>
                                 </div>
                             </div>

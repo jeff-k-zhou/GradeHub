@@ -7,12 +7,15 @@ import calculateGPA from "../components/functions/calculateGPA"
 import unweightedGPA from "../components/functions/unweightedGPA"
 import fetchGrades from "../components/functions/fetchGrades"
 import client from "../components/axios"
+import Chart from "../components/Chart"
 
 export default function GPA() {
     const [loading, setLoading] = useState(true)
     const [calculating, setCalculating] = useState(true)
     const [weighted, setWeighted] = useState<string>('N/A')
     const [unweighted, setUnweighted] = useState<string>('N/A')
+    const [data, setData] = useState<any>(null)
+    const [weight, setWeight] = useState<any>(null)
     const grades = [
         window.sessionStorage.getItem("1") ? JSON.parse(window.sessionStorage.getItem("1")!) : null,
         window.sessionStorage.getItem("2") ? JSON.parse(window.sessionStorage.getItem("2")!) : null,
@@ -28,7 +31,10 @@ export default function GPA() {
                 const weighted = calculateGPA(grades[Number(window.sessionStorage.getItem("mp")!) - 1], Number(window.sessionStorage.getItem("mp")!))
                 const unweighted = unweightedGPA(grades[Number(window.sessionStorage.getItem("mp")!) - 1])
                 if (weighted !== -1 && unweighted !== -1) {
-                    setWeighted(weighted)
+                    setWeighted(weighted.gpa)
+                    setData(weighted.classes)
+                    setWeight(weighted.weight)
+                    console.log(weighted.weight)
                     setUnweighted(unweighted)
                 } else {
                     setWeighted("N/A")
@@ -48,13 +54,16 @@ export default function GPA() {
                             const weighted = calculateGPA(grades.data.grades, Number(grades.data.mp))
                             const unweighted = unweightedGPA(grades.data.grades)
                             if (weighted !== -1 && unweighted !== -1) {
-                                setWeighted(weighted)
+                                setWeighted(weighted.gpa)
+                                setData(weighted.classes)
+                                setWeight(weighted.weight)
                                 setUnweighted(unweighted)
                             } else {
                                 setWeighted("N/A")
                                 setUnweighted("N/A")
                             }
                             window.sessionStorage.setItem(grades.data.mp, JSON.stringify(grades.data.grades))
+                            window.sessionStorage.setItem("mp", grades.data.mp)
                             setCalculating(false)
                         }
                     })
@@ -73,26 +82,46 @@ export default function GPA() {
                 <Nav active={1} />
                 <div className="w-full flex flex-col items-center justify-center mt-10">
                     <div className="w-5/6 flex flex-col md:flex-row justify-center gap-y-3 md:gap-y-0 md:gap-x-10">
-                        <Card className="w-full md:w-1/2">
+                        <Card className="w-full md:w-1/2 p-2">
                             <CardBody>
                                 <h1 className="text-lg">Weighted GPA:</h1>
                                 <Skeleton className="rounded-md w-1/2 mt-1" isLoaded={!calculating}>
-                                    <h1 className="text-4xl">{weighted}</h1>
+                                    <h1 className="text-4xl bg-white">{weighted}</h1>
                                 </Skeleton>
                                 { /* @ts-ignore */}
                                 <Progress size="lg" color={typeof weighted !== "string" ? "primary" : weighted > 5 ? "primary" : weighted > 4 ? "secondary" : weighted > 3 ? "warning" : "danger"} value={weighted} maxValue={6} className="mt-3" />
                             </CardBody>
                         </Card>
-                        <Card className="w-full md:w-1/2">
+                        <Card className="w-full md:w-1/2 p-2">
                             <CardBody>
                                 <h1 className="text-lg">Unweighted GPA:</h1>
                                 <Skeleton className="rounded-md w-1/2 mt-1" isLoaded={!calculating}>
-                                    <h1 className="text-4xl">{unweighted}</h1>
+                                    <h1 className="text-4xl bg-white">{unweighted}</h1>
                                 </Skeleton>
                                 { /* @ts-ignore */}
                                 <Progress size="lg" color={typeof unweighted !== "string" ? "primary" : unweighted > 3.5 ? "primary" : unweighted > 3 ? "secondary" : unweighted > 2 ? "warning" : "danger"} value={unweighted} maxValue={4} className="mt-3" />
                             </CardBody>
                         </Card>
+                    </div>
+                    <div className="w-5/6 h-full flex flex-col lg:flex-row lg:justify-center mt-3">
+                        <div className="hidden lg:block w-1/3">
+                            <div className="w-[95%] h-full">
+                                <Card className="w-full h-full py-3 px-3">
+                                    <Skeleton isLoaded={!calculating}>
+                                        <CardBody className="w-full h-full flex flex-col justify-center gap-y-5 overflow-y-auto">
+                                            {
+                                                data ? data.map((item: any, index: any) => (
+                                                    <div key={index}>
+                                                        {item}: {weight[index]}
+                                                    </div>
+                                                )) : <></>
+                                            }
+                                        </CardBody>
+                                    </Skeleton>
+                                </Card>
+                            </div>
+                        </div>
+                        <Chart />
                     </div>
                 </div>
             </Container>

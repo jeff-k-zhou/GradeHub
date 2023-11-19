@@ -1,7 +1,8 @@
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure, Link as Lnk, NavbarMenu, NavbarMenuItem, NavbarMenuToggle } from "@nextui-org/react"
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure, NavbarMenu, NavbarMenuItem, NavbarMenuToggle } from "@nextui-org/react"
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import links from "./constants/links"
+import { Chip } from "@nextui-org/react"
 
 interface Props {
     active: number
@@ -24,14 +25,14 @@ export default function Nav(props: Props) {
     }
     return (
         <Navbar isBordered>
-            <NavbarMenuToggle 
+            <NavbarMenuToggle
                 className="md:hidden"
             />
             <NavbarBrand className="select-none">
                 <Link to="/">
                     <span className="flex h-full items-center gap-x-3">
                         <img src="/icon.png" width={60}></img>
-                        Alpha
+                        <Chip color="primary" size="sm">Beta</Chip>
                     </span>
                 </Link>
             </NavbarBrand>
@@ -39,11 +40,9 @@ export default function Nav(props: Props) {
                 {
                     links.map((item, index) => (
                         <NavbarItem key={index} isActive={index === props.active}>
-                            <Lnk color={index === props.active ? "primary" : "foreground"}>
-                                <Link to={item.link}>
-                                    {item.name}
-                                </Link>
-                            </Lnk>
+                            <Link to={item.link} className={index === props.active ? "text-[#006FEE]" : ""}>
+                                {item.name}
+                            </Link>
                         </NavbarItem>
                     ))
                 }
@@ -86,11 +85,9 @@ export default function Nav(props: Props) {
                 {
                     links.map((item, index) => (
                         <NavbarMenuItem key={index}>
-                            <Lnk color={index === props.active ? "primary" : "foreground"}>
-                                <Link to={item.link}>
-                                    {item.name}
-                                </Link>
-                            </Lnk>
+                            <Link to={item.link} className={index === props.active ? "text-[#006FEE]" : ""}>
+                                {item.name}
+                            </Link>
                         </NavbarMenuItem>
                     ))
                 }

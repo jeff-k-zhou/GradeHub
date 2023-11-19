@@ -10,7 +10,7 @@ const links = [
     {
         name: "Support",
         link: "/support"
-    }
+    },
 ]
 
 export default links

@@ -10,8 +10,8 @@ export default function Support() {
                     <h1 className="text-5xl">Have a bug or some feedback?</h1>
                     <div className="flex flex-col items-center gap-y-2">
                         <h2 className="text-xl">Email: <a className="underline text-blue-500" href="mailto:gradehubfisd@gmail.com">gradehubfisd@gmail.com</a></h2>
-                        <h2 className="text-xl">Instagram: <a className="underline text-blue-500" href="https://instagram.com/gradehubfisd?igshid=NzZlODBkYWE4Ng%3D%3D&utm_source=qr">@gradehubfisd</a></h2>
-                        <h2 className="text-xl">Github: <a className="underline text-blue-500" href="https://github.com/drPod/GradeHub-ClassDB">GradeHub GPA Database</a></h2>
+                        <h2 className="text-xl">Instagram: <a className="underline text-blue-500" href="https://instagram.com/gradehubfisd?igshid=NzZlODBkYWE4Ng%3D%3D&utm_source=qr" target="_blank">@gradehubfisd</a></h2>
+                        <h2 className="text-xl">Github: <a className="underline text-blue-500" href="https://github.com/drPod/GradeHub-ClassDB" target="_blank">GradeHub GPA Database</a></h2>
                     </div>
                 </div>
             </div>
