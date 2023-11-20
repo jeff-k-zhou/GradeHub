@@ -1,9 +1,9 @@
 import express, { Express, Request, Response } from 'express'
 import axios from "axios"
-import jsdom from "jsdom"
 import cors from "cors"
 import getSession from './functions/getSession'
 import aesjs from "aes-js"
+import * as cheerio from "cheerio"
 
 const app: Express = express()
 app.use(express.json())
@@ -11,6 +11,7 @@ app.use(cors())
 
 app.post("/getGrades", async (req: Request, res: Response) => {
     const credentials = await getSession(req.body.username, req.body.password)
+    const now = Date.now()
     if (credentials.error) {
         res.json({
             error: true,
@@ -23,17 +24,17 @@ app.post("/getGrades", async (req: Request, res: Response) => {
                 "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Mobile Safari/537.36 Edg/117.0.2045.31"
             }
         })
+
         let page = response.data.toString()
-        let dom = new jsdom.JSDOM(page)
-        let document = dom.window.document
-        const login = document.querySelector("#LogOnDetails_UserName")
-        if (login !== null) {
+        let $ = cheerio.load(page)
+        const login = $("#LogOnDetails_UserName")
+        if (login.length !== 0) {
             res.json({
                 error: true,
                 errorCode: 3
             })
         } else {
-            const courses = document.querySelectorAll(".AssignmentClass")
+            const courses = $(".AssignmentClass")
             if (courses.length === 0) {
                 res.json({
                     error: true,
@@ -41,20 +42,16 @@ app.post("/getGrades", async (req: Request, res: Response) => {
                 })
             } else {
                 let mp: string | string[] = ""
-                document.querySelector("#plnMain_ddlReportCardRuns")?.querySelectorAll("option").forEach((option) => {
-                    if (option.getAttribute("selected") === "selected") {
-                        mp = option.value
-                    }
-                })
+                mp = $("#plnMain_ddlReportCardRuns").find(":selected").val()! as string
                 mp = mp.split("-")
                 const year = mp[mp.length - 1].trim()
                 const nineWeeks = mp[0].trim()
                 const postData = {
                     __EVENTTARGET: "ctl00$plnMain$btnRefreshView",
                     __EVENTARGUMENT: "",
-                    __VIEWSTATE: document.querySelector("#__VIEWSTATE")?.getAttribute("value"),
-                    __VIEWSTATEGENERATOR: document.querySelector("#__VIEWSTATEGENERATOR")?.getAttribute("value"),
-                    __EVENTVALIDATION: document.querySelector("#__EVENTVALIDATION")?.getAttribute("value"),
+                    __VIEWSTATE: $("#__VIEWSTATE").attr("value"),
+                    __VIEWSTATEGENERATOR: $("#__VIEWSTATEGENERATOR").attr("value"),
+                    __EVENTVALIDATION: $("#__EVENTVALIDATION").attr("value"),
                     ctl00$plnMain$hdnValidMHACLicense: "Y",
                     ctl00$plnMain$hdnIsVisibleClsWrk: "N",
                     ctl00$plnMain$hdnIsVisibleCrsAvg: "N",
@@ -114,15 +111,14 @@ app.post("/getGrades", async (req: Request, res: Response) => {
                     }
                 })
                 page = response.data.toString()
-                dom = new jsdom.JSDOM(page)
-                document = dom.window.document
-                const courses = document.querySelectorAll(".AssignmentClass")
+                $ = cheerio.load(page)
+                const courses = $(".AssignmentClass")
                 const data: { name: string, code: string, grade: string, assignments: object[] }[] = []
                 for (const course of courses) {
-                    const fullName = course.querySelector(".sg-header-heading")!.textContent
-                    const code = fullName?.match(/([A-Z])\w+\s-\s[0-9]/g)![0]
-                    const name = fullName?.replace(code!, "").trim()
-                    const testGrade = course.querySelector(".sg-header-heading.sg-right")?.textContent?.match(/[0-9]*\.[0-9]+/i)
+                    const fullName = $(course).find("a.sg-header-heading").text()
+                    const code = fullName.match(/([A-Z])\w+\s-\s[0-9]/g)![0]
+                    const name = fullName.replace(code!, "").trim()
+                    const testGrade = $(course).find(".sg-header-heading.sg-right").text().match(/[0-9]*\.[0-9]+/i)
                     if (testGrade === null) {
                         data.push({
                             name: name!,
@@ -133,17 +129,17 @@ app.post("/getGrades", async (req: Request, res: Response) => {
                         continue
                     }
                     const grade = testGrade![0]
-                    const assignments = course.querySelector(".sg-asp-table")
-                    const assignmentTable = assignments!.querySelectorAll(".sg-asp-table-data-row")
+                    const assignments = $(course).find(".sg-asp-table")
+                    const assignmentTable = $(assignments).find(".sg-asp-table-data-row")
                     const assignmentsData: { due: string, assigned: string, name: string, category: string, score: string, totalPoints: string }[] = []
                     for (const assignment of assignmentTable) {
-                        const content = assignment.querySelectorAll("td")
-                        const due = content[0].textContent?.trim()
-                        const assigned = content[1].textContent?.trim()
-                        const name = content[2].textContent?.replace(/\n/g, "").replace("*", "").trim()
-                        const category = content[3].textContent?.replace(/\n/g, "").replace("*", "").trim()
-                        const score = content[4].textContent?.replace(/\n/g, "").replace("*", "").trim()
-                        const totalPoints = content[5].textContent?.trim()
+                        const content = $(assignment).find("td")
+                        const due = $(content[0]).text().trim()
+                        const assigned = $(content[1]).text().trim()
+                        const name = $(content[2]).text().replace(/\n/g, "").replace("*", "").trim()
+                        const category = $(content[3]).text().replace(/\n/g, "").replace("*", "").trim()
+                        const score = $(content[4]).text().replace(/\n/g, "").replace("*", "").trim()
+                        const totalPoints = $(content[5]).text().trim()
                         assignmentsData.push({
                             due: due!,
                             assigned: assigned!,
@@ -168,6 +164,8 @@ app.post("/getGrades", async (req: Request, res: Response) => {
             }
         }
     }
+    const performace = Date.now() - now
+    console.log(`Took ${performace}ms to fetch grades.`)
 })
 
 app.post("/verify", (req: Request, res: Response) => {
@@ -185,10 +183,9 @@ app.post("/verify", (req: Request, res: Response) => {
                 }
             }).then((response) => {
                 const page = response.data.toString()
-                const dom = new jsdom.JSDOM(page)
-                const document = dom.window.document
-                const login = document.querySelector("#LogOnDetails_UserName")
-                if (login !== null) {
+                const $ = cheerio.load(page)
+                const login = $("#LogOnDetails_UserName")
+                if (login.length !== 0) {
                     res.json({
                         error: true,
                         errorCode: 3
