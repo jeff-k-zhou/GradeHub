@@ -154,7 +154,7 @@ export default function Grades() {
             <Container>
                 <Nav active={0} />
                 <div className="w-full h-full flex flex-col items-center justify-center gap-y-4">
-                    <h1 className="font-normal text-xl">There was an error fetching your grades.</h1>
+                    <h1 className="font-normal text-xl w-5/6 text-center">There was an error fetching your grades.</h1>
                     <Button color="primary" onClick={handleErrorRefresh}>
                         <ArrowClockwise size={20} />
                         Retry
