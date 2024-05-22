@@ -80,7 +80,7 @@ export default function DetailedView(props: Props) {
                                 <CardBody className="w-full h-full flex flex-row items-center overflow-y-hidden px-6">
                                     <div className="w-2/3">
                                         <h1 className="text-xl">{grades[props.class].name}</h1>
-                                        <Progress size="md" className="mt-2 hidden md:flex" value={Number(grades[props.class].grade)}></Progress>
+                                        <Progress size="md" className="mt-2 hidden md:flex" color={Number(grades[props.class].grade) >= 90 ? "primary" : Number(grades[props.class].grade) >= 80 ? "secondary" : Number(grades[props.class].grade) >= 70 ? "warning" : "danger"} value={Number(grades[props.class].grade)}></Progress>
                                     </div>
                                     <div className="w-1/3 flex justify-center items-center h-full">
                                         <h1 className="text-2xl md:text-4xl">{grades[props.class].grade.length === 0 ? "0.00" : grades[props.class].grade}%</h1>

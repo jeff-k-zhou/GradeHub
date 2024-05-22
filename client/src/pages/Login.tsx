@@ -5,8 +5,10 @@ import Container from "../components/Container";
 import Nav from "../components/Nav";
 import { Input, Button, Card, CardHeader } from "@nextui-org/react"
 import { Eye, EyeSlash } from "react-bootstrap-icons"
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+    const Navigate = useNavigate()
     const [username, setUsername] = useState<string>("")
     const [password, setPassword] = useState<string>("")
     const [loading, setLoading] = useState<boolean>(true)
@@ -65,7 +67,7 @@ export default function Login() {
             setVerifying(false)
             return
         } else {
-            client.post("/verify", {
+            client.post("/auth/verify", {
                 username: username,
                 password: password
             }).then((response) => {
@@ -84,13 +86,14 @@ export default function Login() {
                         })
                     }
                 } else {
-                    client.post("/encrypt", {
+                    sessionStorage.setItem("cookies", JSON.stringify(response.data.cookies))
+                    client.post("/auth/encrypt", {
                         username: username,
                         password: password
                     }).then((res) => {
                         localStorage.setItem("username", res.data.username)
                         localStorage.setItem("password", res.data.password)
-                        window.location.replace("/grades")
+                        Navigate("/grades")
                     }).catch(() => {
                         setVerifying(false)
                         setStatusError({

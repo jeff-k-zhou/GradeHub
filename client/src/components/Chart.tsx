@@ -71,7 +71,7 @@ export default function Chart() {
                 setCount(count => count + 1)
                 console.log(count)
             } else {
-                client.post("/decrypt", {
+                client.post("/auth/decrypt", {
                     username: localStorage.getItem("username"),
                     password: localStorage.getItem("password")
                 }).then((decryptedInfo) => {

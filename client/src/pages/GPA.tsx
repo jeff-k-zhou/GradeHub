@@ -9,7 +9,7 @@ import fetchGrades from "../components/functions/fetchGrades"
 import client from "../components/axios"
 import Chart from "../components/Chart"
 import { ArrowClockwise } from "react-bootstrap-icons"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 export default function GPA() {
     const [loading, setLoading] = useState(true)
@@ -19,6 +19,7 @@ export default function GPA() {
     const [data, setData] = useState<any>(null)
     const [weight, setWeight] = useState<any>(null)
     const [error, setError] = useState(false)
+    const navigate = useNavigate()
     const grades = [
         window.sessionStorage.getItem("1") ? JSON.parse(window.sessionStorage.getItem("1")!) : null,
         window.sessionStorage.getItem("2") ? JSON.parse(window.sessionStorage.getItem("2")!) : null,
@@ -46,11 +47,12 @@ export default function GPA() {
                 setCalculating(false)
 
             } else {
-                client.post("/decrypt", {
+                client.post("/auth/decrypt", {
                     username: username,
                     password: password
                 }).then((decryptedInfo) => {
-                    fetchGrades(decryptedInfo.data.username, decryptedInfo.data.password).then((grades) => {
+                    let cookies = window.sessionStorage.getItem("cookies") ? JSON.parse(window.sessionStorage.getItem("cookies")!) : null
+                    fetchGrades(decryptedInfo.data.username, decryptedInfo.data.password, cookies).then((grades) => {
                         if (grades.error) {
                             console.log(grades.data)
                             setError(true)
@@ -74,7 +76,7 @@ export default function GPA() {
                 })
             }
         } else {
-            window.location.replace("/login")
+            navigate("/login")
         }
     }, [])
 

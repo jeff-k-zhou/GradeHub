@@ -34,7 +34,9 @@ function App() {
 
   return (
     <NextUIProvider>
+      { /* <main className="dark"> */}
       <RouterProvider router={router} />
+      { /* </main> */}
     </NextUIProvider>
   )
 }

@@ -10,8 +10,10 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar"
 import { ArrowClockwise } from "react-bootstrap-icons"
 import DetailedView from "../components/DetailedView"
 import "../components/animations/slide.css"
+import { useNavigate } from "react-router-dom"
 
 export default function Grades() {
+    const Navigate = useNavigate()
     const [loading, setLoading] = useState(true)
     const [fetching, setFetching] = useState(true)
     const [grades, setGrades] = useState<any[]>([
@@ -35,16 +37,21 @@ export default function Grades() {
                 setLoading(false)
                 setFetching(false)
             } else {
-                client.post("/decrypt", {
+                const timer = setTimeout(() => {
+                    console.log("HAC is slow")
+                }, 5000)
+                client.post("/auth/decrypt", {
                     username: window.localStorage.getItem("username"),
                     password: window.localStorage.getItem("password")
                 }).then((response) => {
                     setLoading(false)
-                    fetchGrades(response.data.username, response.data.password).then((data) => {
+                    let cookies = window.sessionStorage.getItem("cookies") ? JSON.parse(window.sessionStorage.getItem("cookies")!) : null
+                    fetchGrades(response.data.username, response.data.password, cookies).then((data) => {
                         if (data.error) {
                             setError(true)
                             console.log(data.data)
                         } else {
+                            clearTimeout(timer)
                             window.sessionStorage.setItem(data.data.mp, JSON.stringify(data.data.grades))
                             setGrades(prevState => [
                                 ...prevState.slice(0, data.data.mp - 1),
@@ -57,7 +64,7 @@ export default function Grades() {
                         }
                         for (let i = 0; i < 4; i++) {
                             if (!window.sessionStorage.getItem((i + 1).toString())) {
-                                fetchGrades(response.data.username, response.data.password, (i + 1)).then((grades) => {
+                                fetchGrades(response.data.username, response.data.password, cookies, (i + 1)).then((grades) => {
                                     if (grades.error) {
                                         console.log(grades.data)
                                     } else {
@@ -71,7 +78,7 @@ export default function Grades() {
                 })
             }
         } else {
-            window.location.replace("/login")
+            Navigate("/login")
         }
     }, [])
 
@@ -85,12 +92,13 @@ export default function Grades() {
         if (window.sessionStorage.getItem(key)) {
             return "success"
         } else {
-            const decryptedInfo = await client.post("/decrypt", {
+            const decryptedInfo = await client.post("/auth/decrypt", {
                 username: window.localStorage.getItem("username"),
                 password: window.localStorage.getItem("password")
             })
+            let cookies = window.sessionStorage.getItem("cookies") ? JSON.parse(window.sessionStorage.getItem("cookies")!) : null
 
-            const grades = await fetchGrades(decryptedInfo.data.username, decryptedInfo.data.password, key)
+            const grades = await fetchGrades(decryptedInfo.data.username, decryptedInfo.data.password, cookies, key)
             if (grades.error) {
                 console.log(grades.data)
                 return "error"
@@ -104,12 +112,14 @@ export default function Grades() {
     const handleErrorRefresh = async () => {
         setError(false)
         setFetching(true)
-        const decryptedInfo = await client.post("/decrypt", {
+        const decryptedInfo = await client.post("/auth/decrypt", {
             username: window.localStorage.getItem("username"),
             password: window.localStorage.getItem("password")
         })
 
-        const grades = await fetchGrades(decryptedInfo.data.username, decryptedInfo.data.password)
+        let cookies = window.sessionStorage.getItem("cookies") ? JSON.parse(window.sessionStorage.getItem("cookies")!) : null
+
+        const grades = await fetchGrades(decryptedInfo.data.username, decryptedInfo.data.password, cookies)
         if (grades.error) {
             console.log(grades.data)
             setFetching(false)
@@ -132,12 +142,14 @@ export default function Grades() {
             null,
             ...prevState.slice(Number(selected))
         ])
-        const decryptedInfo = await client.post("/decrypt", {
+        const decryptedInfo = await client.post("/auth/decrypt", {
             username: window.localStorage.getItem("username"),
             password: window.localStorage.getItem("password")
         })
 
-        const grades = await fetchGrades(decryptedInfo.data.username, decryptedInfo.data.password)
+        let cookies = window.sessionStorage.getItem("cookies") ? JSON.parse(window.sessionStorage.getItem("cookies")!) : null
+
+        const grades = await fetchGrades(decryptedInfo.data.username, decryptedInfo.data.password, cookies)
         if (grades.error) {
             console.log(grades.data)
             return "error"

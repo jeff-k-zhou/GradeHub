@@ -1,14 +1,14 @@
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure, NavbarMenu, NavbarMenuItem, NavbarMenuToggle } from "@nextui-org/react"
 import { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import links from "./constants/links"
-import { Chip } from "@nextui-org/react"
 
 interface Props {
     active: number
 }
 
 export default function Nav(props: Props) {
+    const navigate = useNavigate()
     const { onOpen, isOpen, onOpenChange } = useDisclosure()
     const [logged, setLogged] = useState(false)
 
@@ -21,7 +21,7 @@ export default function Nav(props: Props) {
     function Logout() {
         localStorage.clear()
         sessionStorage.clear()
-        window.location.replace("/login")
+        navigate("/login")
     }
     return (
         <Navbar isBordered>
@@ -32,7 +32,6 @@ export default function Nav(props: Props) {
                 <Link to="/">
                     <span className="flex h-full items-center gap-x-3">
                         <img src="/icon.png" width={60}></img>
-                        <Chip color="primary" size="sm">Beta</Chip>
                     </span>
                 </Link>
             </NavbarBrand>
