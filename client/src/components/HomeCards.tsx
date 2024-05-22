@@ -10,7 +10,7 @@ interface Props {
 export default function HomeCard(props: Props) {
     const navigate = useNavigate()
     return (
-        <div className="w-1/3 p-5" onClick={() => {
+        <div className="w-[300px] p-5" onClick={() => {
             navigate(props.link)
         }}>
             <Card className="cursor-pointer">

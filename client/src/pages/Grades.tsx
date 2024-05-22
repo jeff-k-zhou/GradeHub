@@ -62,7 +62,7 @@ export default function Grades() {
                             setSelected(data.data.mp)
                             window.sessionStorage.setItem("mp", data.data.mp)
                         }
-                        for (let i = 0; i < 4; i++) {
+                        /* for (let i = 0; i < 4; i++) {
                             if (!window.sessionStorage.getItem((i + 1).toString())) {
                                 fetchGrades(response.data.username, response.data.password, cookies, (i + 1)).then((grades: any) => {
                                     if (grades.error) {
@@ -72,7 +72,7 @@ export default function Grades() {
                                     }
                                 })
                             }
-                        }
+                        } */
                         setFetching(false)
                     })
                 })

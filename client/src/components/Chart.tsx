@@ -15,7 +15,7 @@ import client from './axios'
 import { Card, CardBody, Spinner } from '@nextui-org/react'
 
 export default function Chart() {
-    ChartJS.register(
+    /* ChartJS.register(
         CategoryScale,
         LinearScale,
         PointElement,
@@ -105,17 +105,12 @@ export default function Chart() {
                 })
             }
         }
-    }, [])
+    }, []) */
     return (
         <Card className="w-full lg:w-2/3">
-            <CardBody className="w-full h-full flex flex-col items-center justify-center">
-                {
-                    !data || count < 4 ? <>
-                        <Spinner />
-                        <p className="mt-5">Crunching the latest data...</p>
-                    </> :
-                        <Line data={data} options={options} />
-                }
+            <CardBody className="w-full h-full flex flex-col items-center justify-center gap-y-2">
+                <h1 className="text-3xl">This feature is currently broken.</h1>
+                <p className="text-lg">Thank you so much free tier!</p>
             </CardBody>
         </Card>
     )
