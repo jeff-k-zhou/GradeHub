@@ -52,7 +52,7 @@ export default function GPA() {
                     password: password
                 }).then((decryptedInfo) => {
                     let cookies = window.sessionStorage.getItem("cookies") ? JSON.parse(window.sessionStorage.getItem("cookies")!) : null
-                    fetchGrades(decryptedInfo.data.username, decryptedInfo.data.password, cookies).then((grades) => {
+                    fetchGrades(decryptedInfo.data.username, decryptedInfo.data.password, cookies).then((grades: any) => {
                         if (grades.error) {
                             console.log(grades.data)
                             setError(true)

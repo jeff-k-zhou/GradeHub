@@ -75,7 +75,8 @@ export default function Chart() {
                     username: localStorage.getItem("username"),
                     password: localStorage.getItem("password")
                 }).then((decryptedInfo) => {
-                    fetchGrades(decryptedInfo.data.username, decryptedInfo.data.password, (i + 1)).then((grades) => {
+                    let cookies = window.sessionStorage.getItem("cookies") ? JSON.parse(window.sessionStorage.getItem("cookies")!) : null
+                    fetchGrades(decryptedInfo.data.username, decryptedInfo.data.password, cookies, (i + 1)).then((grades: any) => {
                         if (grades.error) {
                             console.log(grades.data)
                             dataset[i] = 0

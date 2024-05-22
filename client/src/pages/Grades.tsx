@@ -46,7 +46,7 @@ export default function Grades() {
                 }).then((response) => {
                     setLoading(false)
                     let cookies = window.sessionStorage.getItem("cookies") ? JSON.parse(window.sessionStorage.getItem("cookies")!) : null
-                    fetchGrades(response.data.username, response.data.password, cookies).then((data) => {
+                    fetchGrades(response.data.username, response.data.password, cookies).then((data: any) => {
                         if (data.error) {
                             setError(true)
                             console.log(data.data)
@@ -64,7 +64,7 @@ export default function Grades() {
                         }
                         for (let i = 0; i < 4; i++) {
                             if (!window.sessionStorage.getItem((i + 1).toString())) {
-                                fetchGrades(response.data.username, response.data.password, cookies, (i + 1)).then((grades) => {
+                                fetchGrades(response.data.username, response.data.password, cookies, (i + 1)).then((grades: any) => {
                                     if (grades.error) {
                                         console.log(grades.data)
                                     } else {

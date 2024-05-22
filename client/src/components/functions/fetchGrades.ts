@@ -1,6 +1,6 @@
 import client from "../axios";
 
-export default async function fetchGrades(username: string, password: string, cookies: any, mp?: number) {
+export default async function fetchGrades(username: string, password: string, cookies: any, mp?: number): Promise<any> {
     if (!cookies) {
         const response = await client.post("/auth/verify", {
             username: username,
