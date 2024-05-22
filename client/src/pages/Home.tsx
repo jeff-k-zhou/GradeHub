@@ -1,7 +1,7 @@
 import Container from "../components/Container"
 import Nav from "../components/Nav"
 import "../components/animations/fadeIn.css"
-import { Chip, Divider, Card, CardBody } from "@nextui-org/react"
+import { Chip, Divider } from "@nextui-org/react"
 import version from "../components/constants/version"
 import { useState, useEffect } from "react"
 import Loading from "../components/Loading"
