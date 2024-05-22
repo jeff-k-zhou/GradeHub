@@ -1,4 +1,4 @@
-import {
+/* import {
     Chart as ChartJS,
     CategoryScale,
     LinearScale,
@@ -11,8 +11,8 @@ import { Line } from 'react-chartjs-2'
 import { useEffect, useState } from 'react'
 import calculateGPA from './functions/calculateGPA'
 import fetchGrades from './functions/fetchGrades'
-import client from './axios'
-import { Card, CardBody, Spinner } from '@nextui-org/react'
+import client from './axios' */
+import { Card, CardBody } from '@nextui-org/react'
 
 export default function Chart() {
     /* ChartJS.register(
