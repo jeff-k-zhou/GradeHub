@@ -1,4 +1,8 @@
-const classes: object = {
+interface Classes {
+    [key: string]: any
+}
+
+const classes: Classes = {
     CATE00210Y: { // Survey of Agriculture Food & Natural Resources
         weight: 5.0,
         multiplier: 1,

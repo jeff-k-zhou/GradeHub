@@ -1,4 +1,3 @@
-// @ts-nocheck
 import classes from "../ClassDB"
 
 export default function calculateGPA(grades: any[], mp: number) {
@@ -26,14 +25,14 @@ export default function calculateGPA(grades: any[], mp: number) {
                 let scored = false
                 for (const assignment of grade.assignments) {
                     if ((!(isNaN(Number(assignment.score))) || assignment.score === "L" || assignment.score === "ABS") && (assignment.category.includes("Assessment") || assignment.category.includes("Major"))) {
-                        weight.push("N/A")
+                        weight.push("0.0")
+                        counter += classes[key].multiplier
                         scored = true
                         break
                     }
                 }
-                if (scored) {
-                    counter += classes[key].multiplier
-                    weight.push("0.0")
+                if (!scored) {
+                    weight.push("N/A")
                 }
             }
         } else if (Number(grade.grade) >= 70) {

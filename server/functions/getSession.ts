@@ -19,7 +19,6 @@ export default async function getSession(username: string, password: string) {
         const page = response.data.toString()
         const $ = cheerio.load(page)
         const token = $("input[name=__RequestVerificationToken]").attr("value")
-        console.log(token)
         const postData = {
             __RequestVerificationToken: token,
             SCKTY00328510CustomEnabled: "False",
@@ -39,6 +38,20 @@ export default async function getSession(username: string, password: string) {
             withCredentials: true,
         })
         let cookies: any = await jar.getCookies("https://hac.friscoisd.org")
+        let valid = false
+        for (let i = 0; i < cookies!.length; i++) {
+            if (cookies![i].toString().includes(".AuthCookie")) {
+                valid = true
+                break
+            }
+        }
+        if (!valid) {
+            console.log("invalid cookies")
+            return {
+                error: true,
+                data: "invalid"
+            }
+        }
         for (let i = 0; i < cookies!.length; i++) {
             const index = cookies![i].toString().indexOf(" Path=/")
             cookies![i] = cookies![i].toString().substring(0, index)
@@ -50,7 +63,7 @@ export default async function getSession(username: string, password: string) {
     } catch (error) {
         return {
             error: true,
-            data: error
+            data: "timeout"
         }
     }
 }

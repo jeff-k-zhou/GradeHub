@@ -8,9 +8,13 @@ const links = [
         link: "/gpa"
     },
     {
+        name: "Transcript",
+        link: "/transcript"
+    },
+    {
         name: "Support",
         link: "/support"
-    },
+    }
 ]
 
 export default links

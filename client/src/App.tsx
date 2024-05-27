@@ -6,6 +6,7 @@ import Grades from "./pages/Grades"
 import Error from "./pages/Error"
 import GPA from "./pages/GPA"
 import Support from "./pages/Support"
+import Transcript from "./pages/Transcript"
 
 function App() {
   const router = createBrowserRouter([
@@ -29,6 +30,10 @@ function App() {
     {
       path: "/support",
       element: <Support />
+    },
+    {
+      path: "/transcript",
+      element: <Transcript />
     }
   ])
 

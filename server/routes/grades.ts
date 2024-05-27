@@ -6,7 +6,10 @@ const GradesRouter = express.Router()
 
 GradesRouter.post("/getGrades", async (req: Request, res: Response) => {
     if (!req.body.cookies) {
-        console.log("no cookies")
+        res.json({
+            error: true,
+            errorCode: 3
+        })
     } else {
         let response = await axios.get("https://hac.friscoisd.org/HomeAccess/Content/Student/Assignments.aspx", {
             headers: {

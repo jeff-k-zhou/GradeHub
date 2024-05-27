@@ -1,4 +1,4 @@
-import { BarChart, Calculator } from "react-bootstrap-icons"
+import { BarChart, Calculator, FileEarmark } from "react-bootstrap-icons"
 
 const cards = [
     {
@@ -10,6 +10,11 @@ const cards = [
         title: "Calculate GPA",
         icon: <Calculator size={100} />,
         link: "/gpa"
+    },
+    {
+        title: "Transcript",
+        icon: <FileEarmark size={100} />,
+        link: "/transcript"
     }
 ]
 

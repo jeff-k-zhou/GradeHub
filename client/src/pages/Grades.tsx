@@ -33,7 +33,6 @@ export default function Grades() {
     useEffect(() => {
         if (window.localStorage.getItem("username") && window.localStorage.getItem("password")) {
             if (window.sessionStorage.getItem(window.sessionStorage.getItem("mp")!)) {
-                console.log(JSON.parse(window.sessionStorage.getItem(window.sessionStorage.getItem("mp")!)!))
                 setLoading(false)
                 setFetching(false)
             } else {

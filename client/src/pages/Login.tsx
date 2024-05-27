@@ -79,7 +79,7 @@ export default function Login() {
                             error: true,
                             msg: "HAC is not responding. Please try again later."
                         })
-                    } else if (data.errorCode === 3) {
+                    } else if (data.errorCode === 2) {
                         setStatusError({
                             error: true,
                             msg: "Invalid username or password"

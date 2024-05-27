@@ -40,10 +40,17 @@ AuthRouter.post("/verify", (req: Request, res: Response) => {
     console.log("request received")
     getSession(req.body.username, req.body.password).then((credentials) => {
         if (credentials.error) {
-            res.json({
-                error: true,
-                errorCode: 1
-            })
+            if (credentials.data = "invalid") {
+                res.json({
+                    error: true,
+                    errorCode: 2
+                })
+            } else {
+                res.json({
+                    error: true,
+                    errorCode: 1
+                })
+            }
         } else {
             res.json({
                 error: false,
