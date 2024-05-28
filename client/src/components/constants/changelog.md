@@ -1,10 +1,9 @@
-# GradeHub Beta v0.2.0
+# GradeHub v1.0.0
 
-I made a lot of changes to this site in order to prepare for the official release of GradeHub. Since I'm a gracious god whose generosity and benevolence knows no bounds, I decided to release some of these features early.
+The official release of GradeHub is finally here! I have added some exciting new features that should work as intended. If Vercel decides to pull out the middle finger and gives you the infinite loading screen of death, please let me know so I can maybe fix it.
 
 ## New Features:
+* **Cumulative GPA Calculator:** You can now see your predicted cumulative GPA based on your current grades. If it works correctly. I hope.
+* **Transcript Viewer:** You get to stare at your rank and cry about how you're not valedictorian. (Unless you are, in which case, congrats on not having a life.)
 
-* **Updated UI:** The homepage looked ugly. Now it looks less ugly.
-* **Speed Improvements:** It's a lot faster now. I'm not sure how much faster, but it's definitely faster.
-
-Unlike the rest of the grade apps that rob you of your hard-earned money for a barely functional GPA calculator and ugly color schemes, GradeHub will continue to be free for all users, even after its official release. No ads and none of that premium features crap. Thank you for using GradeHub!
+Contrary to other apps, GradeHub is going to remain free of charge. So that means scrubs like you can have the same privileges as all those rich {insert grading app name} premium users. As always, thank you for using GradeHub!
